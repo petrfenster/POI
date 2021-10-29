@@ -9,13 +9,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PoiTest {
     private POI poi;
-    private Rating galleryRating;
-    private HoursOfOperation galleryHours;
-    private GeoLocation galleryGeo;
-    private double galleryPrice;
     private Rating testRating;
     private GeoLocation testGeoLocation;
     private HoursOfOperation testHours;
+    private Rating galleryRating;
+    private GeoLocation galleryGeo;
+    private HoursOfOperation galleryHours;
+    private double galleryPrice;
 
     @BeforeEach
     public void setUp() {

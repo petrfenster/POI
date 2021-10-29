@@ -1,5 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Review {
     private String reviewer;
     private String review;
@@ -29,5 +34,19 @@ public class Review {
 
     public String toString() {
         return reviewer + " : " + review;
+    }
+
+    public List<String> toList() {
+        List<String> reviewList = new ArrayList<>();
+        reviewList.add(reviewer);
+        reviewList.add(review);
+        return reviewList;
+    }
+
+    public JSONObject toJsonObject() {
+        JSONObject json = new JSONObject();
+        json.put("reviewer", reviewer);
+        json.put("review", review);
+        return json;
     }
 }

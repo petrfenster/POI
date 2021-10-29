@@ -21,6 +21,7 @@ I thought that it would be more fun to find places to visit scrolling through th
 ##User stories
 
 * As a user, I want to be able to look through the list of previously added POIs
-* As a user, I want to be able to filter POIs by their
 * As a user, I want to be able to rate each POI with star rating system, and add reviews
 * As a user, I want to be able to add new POIs to the feed
+* As a user, I want my added POIs to be stored in the application
+* As a user, I want my added reviews to be stored in the application

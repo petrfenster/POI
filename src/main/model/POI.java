@@ -3,8 +3,10 @@ package model;
 import model.GeoLocation;
 import model.HoursOfOperation;
 import model.Rating;
+import org.json.JSONObject;
+import persistence.Writable;
 
-public class POI {
+public class POI implements Writable {
     private String name;
     private String type;
     private Rating rating;
@@ -75,6 +77,31 @@ public class POI {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("type", type);
+        // rating
+        json.put("ratingAverageRating", rating.getAverageRating());
+        json.put("ratingReviews", rating.reviewsToListOfJson());
+        // geoLocation
+        json.put("geoStreetNumber", geoLocation.getStreetNumber());
+        json.put("geoStreetName", geoLocation.getStreetName());
+        json.put("geoCityName", geoLocation.getCityName());
+        json.put("geoProvince", geoLocation.getProvince());
+        json.put("geoZipCode", geoLocation.getZipCode());
+        // hoursOfOperation
+        json.put("startHour", hoursOfOperation.getStartHour());
+        json.put("startMinute", hoursOfOperation.getStartMinute());
+        json.put("endHour", hoursOfOperation.getEndHour());
+        json.put("endMinute", hoursOfOperation.getEndMinute());
+        // price
+        json.put("price", price);
+        return json;
+    }
+
 }
 
 

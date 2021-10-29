@@ -10,13 +10,13 @@ import java.util.List;
 public class RatingTest {
     private Rating rating;
     private List<Review> reviews;
-    private List<Review> testReviews;
     private Review review1;
     private Review review2;
     private Review review3;
     private Review review4;
     private Review review5;
     private Review review6;
+
 
     
     @BeforeEach
@@ -48,7 +48,7 @@ public class RatingTest {
 
     @Test
     public void testSetRating() {
-        testReviews = new ArrayList<>();
+        List<Review> testReviews = new ArrayList<>();
         testReviews.add(review1);
         testReviews.add(review4);
         rating.setReviews(testReviews);
@@ -93,12 +93,5 @@ public class RatingTest {
         reviews.add(review6);
         assertEquals(reviews, rating.getReviews());
     }
-
-    @Test
-    public void testToString() {
-        assertEquals("3.9 -  Jack : Beautiful paintings;  Vaibhav : Could be better;  Petr : Overpriced;" +
-                "  Kash : Van Gogh;  Shaon : Friendly staff; ",rating.toString());
-    }
-
 
 }

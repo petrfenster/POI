@@ -1,17 +1,29 @@
 package ui;
 
 import model.*;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class PointApp {
+    private static final String JSON_STORE = "./data/feedCollection.json";
     private Scanner input;
-    private List<POI> poiList;
+    private FeedCollection feedCollection;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: run the Point Application
-    public PointApp() {
+    public PointApp() throws FileNotFoundException {
+        input = new Scanner(System.in);
+        input.useDelimiter("\n");
+        feedCollection = new FeedCollection("Collection");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runPointApp();
     }
 
@@ -21,8 +33,6 @@ public class PointApp {
     private void runPointApp() {
         boolean keepGoing = true;
         String command = null;
-
-        init();
 
         while (keepGoing) {
             displayMenu();
@@ -42,12 +52,20 @@ public class PointApp {
     // MODIFIES: this
     // EFFECTS: processes user command
     private void processCommand(String command) {
-        if (command.equals("s")) {
+        if (command.equals("c")) {
             selectPOI();
+        } else if (command.equals("l")) {
+            listAvailablePOI();
         } else if (command.equals("a")) {
             addPOI();
         } else if (command.equals("r")) {
             ratePOI();
+        } else if (command.equals("i")) {
+            infoPOI();
+        } else if (command.equals("load")) {
+            loadFeedCollection();
+        } else if (command.equals("save")) {
+            saveFeedCollection();
         } else {
             System.out.println("Hmm, seems like your selection is invalid, please try again!");
         }
@@ -56,9 +74,13 @@ public class PointApp {
     // EFFECTS: displays menu of options to user
     private void displayMenu() {
         System.out.println("\nSelect from:");
-        System.out.println("\ts -> select POI");
+        System.out.println("\tload -> load collection of POIs");
+        System.out.println("\tl -> list available POI");
+        System.out.println("\ti -> more info about a particular POI");
+        System.out.println("\tc -> search by categories POI");
         System.out.println("\ta -> add POI");
         System.out.println("\tr -> rate POI");
+        System.out.println("\tsave -> save collection of POIs");
         System.out.println("\tq -> quit");
     }
 
@@ -69,6 +91,48 @@ public class PointApp {
         System.out.println("\tr -> Restaurant");
         System.out.println("\tm -> Museum");
         System.out.println("\tb -> Beach");
+    }
+
+    // EFFECTS: lists all available POIs stored in poiList
+    private void listAvailablePOI() {
+        for (POI i : feedCollection.getPoiList()) {
+            System.out.print(i.getName());
+            System.out.print(" - ");
+            System.out.println(i.getType());
+        }
+    }
+
+
+
+    // EFFECTS: displays info
+    private void infoPOI() {
+        System.out.println("List of available POIs: ");
+        for (int p = 0; p < feedCollection.getPoiList().size(); p++) {
+            System.out.print(p + 1);
+            System.out.print(" - ");
+            System.out.println(feedCollection.getPoiList().get(p).getName());
+        }
+        int poiIndex = input.nextInt() - 1;
+        displayInfo(feedCollection.getPoiList().get(poiIndex));
+    }
+
+    // EFFECTS: displays full info about a particular POI
+    private void displayInfo(POI poi) {
+        System.out.print("Name: ");
+        System.out.println(poi.getName());
+        System.out.print("Location: ");
+        System.out.println(poi.getGeoLocation().toString());
+        System.out.print("Hours of operation: ");
+        System.out.println(poi.getHoursOfOperation().toString());
+        System.out.print("Price: ");
+        System.out.println(poi.getPrice());
+        System.out.print("Rating: ");
+        System.out.println(poi.getRating().getAverageRating());
+        System.out.println("Reviews: ");
+        List<Review> reviewList = poi.getRating().getReviews();
+        for (Review r: reviewList) {
+            System.out.println(r.toString());
+        }
     }
 
     // EFFECTS: conducts select process
@@ -87,23 +151,11 @@ public class PointApp {
             selectedType = "Beach";
         }
 
-        selectCycle(selectedType);
-    }
-
-    // EFFECTS: runs through the list of POIs and compares POIs to specified type
-    private void selectCycle(String selectedType) {
-        for (POI i : poiList) {
+        for (POI i : feedCollection.getPoiList()) {
             if (selectedType.equals(i.getType())) {
-                System.out.print("Name: ");
-                System.out.println(i.getName());
-                System.out.print("Rating: ");
-                System.out.println(i.getRating().toString());
-                System.out.print("Location: ");
-                System.out.println(i.getGeoLocation().toString());
-                System.out.print("Hours of operation: ");
-                System.out.println(i.getHoursOfOperation().toString());
-                System.out.print("Price: ");
-                System.out.println(i.getPrice());
+                System.out.print(i.getName());
+                System.out.print(" - ");
+                System.out.println(i.getType());
             }
         }
     }
@@ -118,8 +170,22 @@ public class PointApp {
     // EFFECTS: creates interface for adding POI type, returns type
     private String addTypeInterface() {
         System.out.println("Please specify the type of POI: ");
-        String addType = input.next();
-        return addType;
+        System.out.println("\tp -> Park");
+        System.out.println("\tr -> Restaurant");
+        System.out.println("\tm -> Museum");
+        System.out.println("\tb -> Beach");
+        String selectedType = input.next();
+        if (selectedType.equals("p")) {
+            return "Park";
+        } else if (selectedType.equals("r")) {
+            return "Restaurant";
+        } else if (selectedType.equals("m")) {
+            return "Museum";
+        } else if (selectedType.equals("b")) {
+            return "Beach";
+        } else {
+            return "Not selected";
+        }
     }
 
     // EFFECTS: creates interface for adding POI numeric rating, returns numeric rating
@@ -235,93 +301,50 @@ public class PointApp {
 
         POI addPOI = new POI(addName, addType, addRating, addGeo, addHours, addPriceInterface());
 
-        poiList.add(addPOI);
+        feedCollection.addToList(addPOI);
     }
 
     // MODIFIES: this
     // EFFECTS: assigns rating to a specified POI
     private void ratePOI() {
-        System.out.println("Please provide the name of POI you wish to rate: ");
-        String rateName = input.next();
-        for (POI i : poiList) {
-            if (rateName.equals(i.getName())) {
-                System.out.println("Please rate this POI on a scale from 0 to 5 inclusively: ");
-                double rateNum = input.nextInt();
-                System.out.println("Please provide review for POI: ");
-                String rateText = input.next();
-                System.out.println("Please provide your name or nickname: ");
-                String rateReviewer = input.next();
-                Review rateReview = new Review(rateReviewer, rateText);
-                i.getRating().generalRating(rateNum, rateReview);
-            }
+        System.out.println("Please select one of the POIs to rate: ");
+        for (int p = 0; p < feedCollection.getPoiList().size(); p++) {
+            System.out.print(p + 1);
+            System.out.print(" - ");
+            System.out.println(feedCollection.getPoiList().get(p).getName());
         }
+        int poiIndex = input.nextInt() - 1;
+        POI ratePOI = feedCollection.getPoiList().get(poiIndex);
+        System.out.println("Please rate this POI on a scale from 0 to 5 inclusively: ");
+        double rateNum = input.nextInt();
+        System.out.println("Please provide review for POI: ");
+        String rateText = input.next();
+        System.out.println("Please provide your name or nickname: ");
+        String rateReviewer = input.next();
+        Review rateReview = new Review(rateReviewer, rateText);
+        ratePOI.getRating().generalRating(rateNum, rateReview);
+    }
 
+    // EFFECTS: saves the workroom to file
+    private void saveFeedCollection() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(feedCollection);
+            jsonWriter.close();
+            System.out.println("Saved " + feedCollection.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
     }
 
     // MODIFIES: this
-    // EFFECTS: initializes POIs
-    private void init() {
-        input = new Scanner(System.in);
-        input.useDelimiter("\n");
-        poiList = new ArrayList<>();
-
-        initializeCapilano();
-        initializeKinton();
+    // EFFECTS: loads workroom from file
+    private void loadFeedCollection() {
+        try {
+            feedCollection = jsonReader.read();
+            System.out.println("Loaded " + feedCollection.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
-
-    // MODIFIES: this
-    // EFFECTS: creates POI capilano and adds to poiList
-    private void initializeCapilano() {
-        GeoLocation capilanoGeo = new GeoLocation(3735, "Capilano Rd",
-                "North Vancouver", "BC", "V7R 4J1");
-
-        Review capilano1 = new Review("Shaon", "Very nice!");
-        Review capilano2 = new Review("Vaibhav", "Meh");
-        Review capilano3 = new Review("Petr", "Overpriced LOL");
-        Review capilano4 = new Review("Kash", "fine");
-
-        List<Review> capilanoReviews = new ArrayList<>();
-
-        capilanoReviews.add(capilano1);
-        capilanoReviews.add(capilano2);
-        capilanoReviews.add(capilano3);
-        capilanoReviews.add(capilano4);
-
-        Rating capilanoRating = new Rating(capilanoReviews, 4, 3.5);
-        HoursOfOperation capilanoHours = new HoursOfOperation(9, 0, 17, 0);
-
-        POI capilano = new POI("Capilano Suspension Bridge", "Park", capilanoRating, capilanoGeo,
-                capilanoHours, 50);
-        poiList.add(capilano);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: creates POI Kinton and adds to poiList
-    private void initializeKinton() {
-        GeoLocation kintonGeo = new GeoLocation(6111, "University Blvd", "Vancouver",
-                "BC", "V6T 0C7");
-
-        Review kinton1 = new Review("Shaon", "Very tasty");
-        Review kinton2 = new Review("Vaibhav", "Could be better");
-        Review kinton3 = new Review("Petr", "I wish there were more vegan options");
-        Review kinton4 = new Review("Kash", "They have gluten free options");
-        Review kinton5 = new Review("Alec", "Nice");
-
-        List<Review> kintonReviews = new ArrayList<>();
-
-        kintonReviews.add(kinton1);
-        kintonReviews.add(kinton2);
-        kintonReviews.add(kinton3);
-        kintonReviews.add(kinton4);
-        kintonReviews.add(kinton5);
-
-        Rating kintonRating = new Rating(kintonReviews, 5, 4.5);
-        HoursOfOperation kintonHours = new HoursOfOperation(8, 0, 22, 0);
-
-        POI kinton = new POI("Kinton Ramen", "Restaurant", kintonRating, kintonGeo,
-                kintonHours, 20);
-
-        poiList.add(kinton);
-    }
-
 }

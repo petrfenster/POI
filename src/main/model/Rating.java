@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,12 +84,19 @@ public class Rating {
 
     //EFFECTS: returns string representation of rating
 
-    public String toString() {
-        String stringRep = "";
+    public List<List<String>> reviewsToListOfListOfString() {
+        List<List<String>> reviewsList = new ArrayList<>();
         for (Review r : reviews) {
-            stringRep = stringRep + " " + r.toString() + "; ";
+            reviewsList.add(r.toList());
         }
-        stringRep = averageRating + " - " + stringRep;
-        return stringRep;
+        return reviewsList;
+    }
+
+    public JSONArray reviewsToListOfJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Review r : reviews) {
+            jsonArray.put(r.toJsonObject());
+        }
+        return jsonArray;
     }
 }
