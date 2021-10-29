@@ -2,8 +2,10 @@ package persistence;
 
 import model.FeedCollection;
 import org.junit.jupiter.api.Test;
+import ui.InitialPOI;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
