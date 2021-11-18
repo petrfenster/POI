@@ -1,11 +1,12 @@
 package model;
 
 import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Review {
+public class Review implements Writable {
     private String reviewer;
     private String review;
 
@@ -43,7 +44,8 @@ public class Review {
         return reviewList;
     }
 
-    public JSONObject toJsonObject() {
+    @Override
+    public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("reviewer", reviewer);
         json.put("review", review);

@@ -24,7 +24,7 @@ public class JsonReaderTest extends JsonTest {
 
     @Test
     void testReaderEmptyFeedCollection() {
-        JsonReader reader = new JsonReader("./data/testFeedCollection.json");
+        JsonReader reader = new JsonReader("./data/testEmptyFC.json");
         try {
             FeedCollection feedCollection = reader.read();
             assertEquals("Collection", feedCollection.getName());
@@ -36,7 +36,7 @@ public class JsonReaderTest extends JsonTest {
 
     @Test
     void testReaderGeneralWorkRoom() {
-        JsonReader reader = new JsonReader("./data/feedCollectionTest.json");
+        JsonReader reader = new JsonReader("./data/testGeneralFC.json");
         try {
             FeedCollection feedCollection = reader.read();
             assertEquals("Collection", feedCollection.getName());

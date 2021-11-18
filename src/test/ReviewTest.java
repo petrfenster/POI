@@ -1,4 +1,5 @@
 import model.Review;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,4 +31,10 @@ public class ReviewTest {
         assertEquals("Jack : Beautiful paintings", review.toString());
     }
 
+    @Test
+    public void testToJson() {
+        JSONObject json = review.toJson();
+        assertEquals("Jack", json.getString("reviewer"));
+        assertEquals("Beautiful paintings", json.getString("review"));
+    }
 }

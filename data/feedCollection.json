@@ -1,24 +1,22 @@
 {
     "name": "Collection",
-    "pois": [
-        {
-            "geoCityName": "vancouver",
-            "geoProvince": "BC",
-            "geoZipCode": "V6T 1K6",
-            "type": "Beach",
-            "ratingReviews": [{
-                "review": "meh",
-                "reviewer": "Petr"
-            }],
-            "geoStreetNumber": 1,
-            "endHour": 22,
-            "startHour": 8,
-            "price": 60,
-            "name": "Capilano",
-            "geoStreetName": "Capliano rd",
-            "startMinute": 40,
-            "ratingAverageRating": 3.2,
-            "endMinute": 0
-        }
-    ]
+    "pois": [{
+        "geoCityName": "hvdek",
+        "geoProvince": "BC",
+        "geoZipCode": "ghbck",
+        "type": "Museum",
+        "ratingReviews": [{
+            "review": "ghjbckfe",
+            "reviewer": "hgbvc"
+        }],
+        "geoStreetNumber": 3,
+        "endHour": 22,
+        "startHour": 6,
+        "price": 66,
+        "name": "hbde",
+        "geoStreetName": "gde",
+        "startMinute": 30,
+        "ratingAverageRating": 4,
+        "endMinute": 0
+    }]
 }

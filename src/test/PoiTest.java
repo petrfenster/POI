@@ -1,13 +1,16 @@
 import model.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import persistence.JsonTest;
 
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class PoiTest {
+public class PoiTest extends JsonTest {
     private POI poi;
     private Rating testRating;
     private GeoLocation testGeoLocation;
@@ -86,6 +89,49 @@ public class PoiTest {
         poi.setPrice(89.99);
         assertEquals(89.99, poi.getPrice());
     }
+
+    @Test
+    public void testToJson() {
+        JSONObject jsonObject = poi.toJson();
+        String name = jsonObject.getString("name");
+        String type = jsonObject.getString("type");
+        double averageRating = jsonObject.getDouble("ratingAverageRating");
+        String streetName = jsonObject.getString("geoStreetName");
+        int streetNumber = jsonObject.getInt("geoStreetNumber");
+        String cityName = jsonObject.getString("geoCityName");
+        String province = jsonObject.getString("geoProvince");
+        String zipCode = jsonObject.getString("geoZipCode");
+        int startHour = jsonObject.getInt("startHour");
+        int endHour = jsonObject.getInt("endHour");
+        int startMinute = jsonObject.getInt("startMinute");
+        int endMinute = jsonObject.getInt("endMinute");
+        double price = jsonObject.getDouble("price");
+        JSONArray ratingReviewsJson = jsonObject.getJSONArray("ratingReviews");
+        List<Review> reviews = reviewsFromJson(ratingReviewsJson);
+        Rating rating = new Rating(reviews, reviews.size(), averageRating);
+        GeoLocation geoLocation = new GeoLocation(streetNumber, streetName, cityName, province, zipCode);
+        HoursOfOperation hoursOfOperation = new HoursOfOperation(startHour, startMinute, endHour, endMinute);
+        POI poi_test = new POI(name, type, rating, geoLocation, hoursOfOperation, price);
+        checkPOI(poi.getName(), poi.getType(), poi.getRating(), poi.getGeoLocation(), poi.getHoursOfOperation(),
+                poi.getPrice(), poi_test);
+    }
+
+    public List<Review> reviewsFromJson(JSONArray jsonArray) {
+        List<Review> ratingReviws  = new ArrayList<>();
+        for (Object json: jsonArray) {
+            JSONObject nextReview = (JSONObject) json;
+            ratingReviws.add(reviewFromJsonObject(nextReview));
+        }
+        return ratingReviws;
+    }
+
+    public Review reviewFromJsonObject(JSONObject jsonObject) {
+        String reviewer = jsonObject.getString("reviewer");
+        String review = jsonObject.getString("review");
+        Review jsonReview = new Review(reviewer, review);
+        return jsonReview;
+    }
+
 
 
 

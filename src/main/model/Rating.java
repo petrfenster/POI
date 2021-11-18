@@ -1,9 +1,8 @@
 package model;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
+import persistence.Writable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Rating {
@@ -82,20 +81,10 @@ public class Rating {
         addReview(review);
     }
 
-    //EFFECTS: returns string representation of rating
-
-    public List<List<String>> reviewsToListOfListOfString() {
-        List<List<String>> reviewsList = new ArrayList<>();
-        for (Review r : reviews) {
-            reviewsList.add(r.toList());
-        }
-        return reviewsList;
-    }
-
     public JSONArray reviewsToListOfJson() {
         JSONArray jsonArray = new JSONArray();
         for (Review r : reviews) {
-            jsonArray.put(r.toJsonObject());
+            jsonArray.put(r.toJson());
         }
         return jsonArray;
     }

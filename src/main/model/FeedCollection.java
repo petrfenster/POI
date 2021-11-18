@@ -52,9 +52,8 @@ public class FeedCollection implements Writable {
     }
 
     // EFFECTS: returns things in this workroom as a JSON array
-    private JSONArray poiListToJson() {
+    public JSONArray poiListToJson() {
         JSONArray jsonArray = new JSONArray();
-
         for (POI poi : poiList) {
             jsonArray.put(poi.toJson());
         }

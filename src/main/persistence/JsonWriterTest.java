@@ -1,6 +1,8 @@
 package persistence;
 
 import model.FeedCollection;
+import model.POI;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ui.InitialPOI;
 
@@ -10,7 +12,21 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class JsonWriterTest {
+public class JsonWriterTest extends JsonTest {
+    private FeedCollection feedCollection;
+    private InitialPOI initialPOI;
+
+    @BeforeEach
+    void setUp() {
+        initialPOI = new InitialPOI();
+        feedCollection = new FeedCollection("Collection");
+        feedCollection.addToList(initialPOI.initializeCapilano());
+        feedCollection.addToList(initialPOI.initializeKinton());
+        feedCollection.addToList(initialPOI.initializeWreck());
+        feedCollection.addToList(initialPOI.initializeTelus());
+    }
+
+
     @Test
     void testWriterInvalidFile() {
         try {
@@ -24,18 +40,41 @@ public class JsonWriterTest {
     }
 
     @Test
-    void testWriterEmptyWorkroom() {
+    void testWriterEmpty() {
         try {
             FeedCollection feedCollection = new FeedCollection("Collection");
-            JsonWriter writer = new JsonWriter("./data/testWriterEmpty.json");
+            JsonWriter writer = new JsonWriter("./data/testWriterEmptyFC.json");
             writer.open();
             writer.write(feedCollection);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterEmpty.json");
+            JsonReader reader = new JsonReader("./data/testWriterEmptyFC.json");
             feedCollection = reader.read();
             assertEquals("Collection", feedCollection.getName());
             assertEquals(0, feedCollection.getPoiList().size());
+        } catch (IOException e) {
+            fail("Exception should not have been thrown");
+        }
+    }
+
+    @Test
+    void testWriterGeneral() {
+        try {
+            JsonWriter writer = new JsonWriter("./data/testWriterGeneralFC.json");
+            writer.open();
+            writer.write(feedCollection);
+            writer.close();
+            JsonReader reader = new JsonReader("./data/testWriterGeneralFC.json");
+            feedCollection = reader.read();
+            assertEquals("Collection", feedCollection.getName());
+            List<POI> pois = feedCollection.getPoiList();
+            assertEquals(4, pois.size());
+            POI capilano = initialPOI.initializeCapilano();
+            POI kinton = initialPOI.initializeKinton();
+            checkPOI(capilano.getName(), capilano.getType(), capilano.getRating(), capilano.getGeoLocation(),
+                    capilano.getHoursOfOperation(), capilano.getPrice(), pois.get(0));
+            checkPOI(kinton.getName(), kinton.getType(), kinton.getRating(), kinton.getGeoLocation(),
+                    kinton.getHoursOfOperation(), kinton.getPrice(), pois.get(1));
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }

@@ -1,5 +1,7 @@
 import model.Rating;
 import model.Review;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -92,6 +94,18 @@ public class RatingTest {
         assertEquals(6, rating.getNumRatings());
         reviews.add(review6);
         assertEquals(reviews, rating.getReviews());
+    }
+
+    @Test
+    public void testReviewsToListOfJson() {
+        JSONArray jsonArray = rating.reviewsToListOfJson();
+        assertEquals(reviews.size(), jsonArray.length());
+        for (int i = 0; i < jsonArray.length(); i++) {
+            Object object = jsonArray.get(i);
+            JSONObject json = (JSONObject) object;
+            assertEquals(reviews.get(i).getReviewer(), json.getString("reviewer"));
+            assertEquals(reviews.get(i).getReview(), json.getString("review"));
+        }
     }
 
 }
