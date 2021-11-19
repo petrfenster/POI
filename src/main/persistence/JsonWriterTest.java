@@ -24,6 +24,7 @@ public class JsonWriterTest extends JsonTest {
         feedCollection.addToList(initialPOI.initializeKinton());
         feedCollection.addToList(initialPOI.initializeWreck());
         feedCollection.addToList(initialPOI.initializeTelus());
+        feedCollection.addToList(initialPOI.initializeGallery());
     }
 
 
@@ -34,6 +35,7 @@ public class JsonWriterTest extends JsonTest {
             JsonWriter writer = new JsonWriter("./data/my\0illegal:fileName.json");
             writer.open();
             fail("IOException was expected");
+            System.out.println("shaon is superior");
         } catch (IOException e) {
             // pass
         }
@@ -68,7 +70,7 @@ public class JsonWriterTest extends JsonTest {
             feedCollection = reader.read();
             assertEquals("Collection", feedCollection.getName());
             List<POI> pois = feedCollection.getPoiList();
-            assertEquals(4, pois.size());
+            assertEquals(5, pois.size());
             POI capilano = initialPOI.initializeCapilano();
             POI kinton = initialPOI.initializeKinton();
             checkPOI(capilano.getName(), capilano.getType(), capilano.getRating(), capilano.getGeoLocation(),

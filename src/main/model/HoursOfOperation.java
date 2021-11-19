@@ -39,24 +39,6 @@ public class HoursOfOperation {
         return endMinute;
     }
 
-    //setters
-
-    public void setStartHour() {
-        this.startHour = startHour;
-    }
-
-    public void setStartMinute(int startMinute) {
-        this.startMinute = startMinute;
-    }
-
-    public void setEndHour(int endHour) {
-        this.endHour = endHour;
-    }
-
-    public void setEndMinute(int endMinute) {
-        this.endMinute = endMinute;
-    }
-
     @Override
 
     //EFFECTS: returns string representation of hours of operation

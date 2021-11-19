@@ -123,4 +123,33 @@ public class InitialPOI {
 
         return poi;
     }
+
+    public POI initializeGallery() {
+        GeoLocation geo = new GeoLocation(750, "Hornby St", "Vancouver",
+                "BC", "V6Z 2H7");
+
+        Review gallery1 = new Review("Jack", "Beautiful paintings");
+        Review gallery2 = new Review("Vaibhav", "Could be better");
+        Review gallery3 = new Review("Petr", "Overpriced");
+        Review gallery4 = new Review("Kash", "Van Gogh");
+        Review gallery5 = new Review("Shaon", "Friendly staff");
+
+        List<Review> reviews = new ArrayList<>();
+
+        reviews.add(gallery1);
+        reviews.add(gallery2);
+        reviews.add(gallery3);
+        reviews.add(gallery4);
+        reviews.add(gallery5);
+
+        Rating rating = new Rating(reviews, 5, 3.9);
+        HoursOfOperation hours = new HoursOfOperation(10, 0, 19, 30);
+        double price = 49.99;
+
+
+        POI poi = new POI("Vancouver Art Gallery", "Museum", rating, geo,
+                hours, price);
+
+        return poi;
+    }
 }

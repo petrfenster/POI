@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class PointApp {
+public class PointAppText {
     private static final String JSON_STORE = "./data/feedCollection.json";
     private Scanner input;
     private FeedCollection feedCollection;
@@ -18,7 +18,7 @@ public class PointApp {
     private JsonReader jsonReader;
 
     // EFFECTS: run the Point Application
-    public PointApp() throws FileNotFoundException {
+    public PointAppText() throws FileNotFoundException {
         input = new Scanner(System.in);
         input.useDelimiter("\n");
         feedCollection = new FeedCollection("Collection");

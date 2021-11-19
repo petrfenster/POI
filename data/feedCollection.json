@@ -1,22 +1,205 @@
 {
     "name": "Collection",
-    "pois": [{
-        "geoCityName": "hvdek",
-        "geoProvince": "BC",
-        "geoZipCode": "ghbck",
-        "type": "Museum",
-        "ratingReviews": [{
-            "review": "ghjbckfe",
-            "reviewer": "hgbvc"
-        }],
-        "geoStreetNumber": 3,
-        "endHour": 22,
-        "startHour": 6,
-        "price": 66,
-        "name": "hbde",
-        "geoStreetName": "gde",
-        "startMinute": 30,
-        "ratingAverageRating": 4,
-        "endMinute": 0
-    }]
+    "pois": [
+        {
+            "geoCityName": "North Vancouver",
+            "geoProvince": "BC",
+            "geoZipCode": "V7R 4J1",
+            "type": "Park",
+            "ratingReviews": [
+                {
+                    "review": "Very nice!",
+                    "reviewer": "Shaon"
+                },
+                {
+                    "review": "Meh",
+                    "reviewer": "Vaibhav"
+                },
+                {
+                    "review": "Overpriced LOL",
+                    "reviewer": "Petr"
+                },
+                {
+                    "review": "fine",
+                    "reviewer": "Kash"
+                }
+            ],
+            "geoStreetNumber": 3735,
+            "endHour": 17,
+            "startHour": 9,
+            "price": 50,
+            "name": "Capilano Suspension Bridge",
+            "geoStreetName": "Capilano Rd",
+            "startMinute": 0,
+            "ratingAverageRating": 3.5,
+            "endMinute": 0
+        },
+        {
+            "geoCityName": "Vancouver",
+            "geoProvince": "BC",
+            "geoZipCode": "V6T 0C7",
+            "type": "Restaurant",
+            "ratingReviews": [
+                {
+                    "review": "Very tasty",
+                    "reviewer": "Shaon"
+                },
+                {
+                    "review": "Could be better",
+                    "reviewer": "Vaibhav"
+                },
+                {
+                    "review": "I wish there were more vegan options",
+                    "reviewer": "Petr"
+                },
+                {
+                    "review": "They have gluten free options",
+                    "reviewer": "Kash"
+                },
+                {
+                    "review": "Nice",
+                    "reviewer": "Alec"
+                }
+            ],
+            "geoStreetNumber": 6111,
+            "endHour": 22,
+            "startHour": 8,
+            "price": 20,
+            "name": "Kinton Ramen",
+            "geoStreetName": "University Blvd",
+            "startMinute": 0,
+            "ratingAverageRating": 4.5,
+            "endMinute": 0
+        },
+        {
+            "geoCityName": "Vancouver",
+            "geoProvince": "BC",
+            "geoZipCode": "V6T 1Z4",
+            "type": "Beach",
+            "ratingReviews": [
+                {
+                    "review": "Nice sunset",
+                    "reviewer": "Shaon"
+                },
+                {
+                    "review": "Cold water",
+                    "reviewer": "Vaibhav"
+                },
+                {
+                    "review": "Nude people",
+                    "reviewer": "Petr"
+                },
+                {
+                    "review": "Cool",
+                    "reviewer": "Kash"
+                },
+                {
+                    "review": "Okay",
+                    "reviewer": "Alec"
+                }
+            ],
+            "geoStreetNumber": 1,
+            "endHour": 21,
+            "startHour": 8,
+            "price": 0,
+            "name": "Wreck Beach",
+            "geoStreetName": "SW Marine Dr",
+            "startMinute": 0,
+            "ratingAverageRating": 4.1,
+            "endMinute": 0
+        },
+        {
+            "geoCityName": "Vancouver",
+            "geoProvince": "BC",
+            "geoZipCode": "V6A 327",
+            "type": "Museum",
+            "ratingReviews": [
+                {
+                    "review": "Expensive!",
+                    "reviewer": "Shaon"
+                },
+                {
+                    "review": "Only for kids",
+                    "reviewer": "Vaibhav"
+                },
+                {
+                    "review": "Meh",
+                    "reviewer": "Petr"
+                },
+                {
+                    "review": "Nice exhibition",
+                    "reviewer": "Kash"
+                },
+                {
+                    "review": "Interesting",
+                    "reviewer": "Alec"
+                }
+            ],
+            "geoStreetNumber": 1455,
+            "endHour": 17,
+            "startHour": 10,
+            "price": 70,
+            "name": "TELUS World of Science",
+            "geoStreetName": "Quebec St",
+            "startMinute": 0,
+            "ratingAverageRating": 2.7,
+            "endMinute": 0
+        },
+        {
+            "geoCityName": "Vancouver",
+            "geoProvince": "BC",
+            "geoZipCode": "V6Z 2H7",
+            "type": "Museum",
+            "ratingReviews": [
+                {
+                    "review": "Beautiful paintings",
+                    "reviewer": "Jack"
+                },
+                {
+                    "review": "Could be better",
+                    "reviewer": "Vaibhav"
+                },
+                {
+                    "review": "Overpriced",
+                    "reviewer": "Petr"
+                },
+                {
+                    "review": "Van Gogh",
+                    "reviewer": "Kash"
+                },
+                {
+                    "review": "Friendly staff",
+                    "reviewer": "Shaon"
+                }
+            ],
+            "geoStreetNumber": 750,
+            "endHour": 19,
+            "startHour": 10,
+            "price": 49.99,
+            "name": "Vancouver Art Gallery",
+            "geoStreetName": "Hornby St",
+            "startMinute": 0,
+            "ratingAverageRating": 3.9,
+            "endMinute": 30
+        },
+        {
+            "geoCityName": "bdwuq",
+            "geoProvince": "AB",
+            "geoZipCode": "dhbkjew",
+            "type": "Museum",
+            "ratingReviews": [{
+                "review": "bd",
+                "reviewer": "dgqw"
+            }],
+            "geoStreetNumber": 78,
+            "endHour": 1,
+            "startHour": 1,
+            "price": 89,
+            "name": "hdbew",
+            "geoStreetName": "bdhwq",
+            "startMinute": 30,
+            "ratingAverageRating": 2,
+            "endMinute": 30
+        }
+    ]
 }

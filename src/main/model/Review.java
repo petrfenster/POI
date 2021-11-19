@@ -37,13 +37,6 @@ public class Review implements Writable {
         return reviewer + " : " + review;
     }
 
-    public List<String> toList() {
-        List<String> reviewList = new ArrayList<>();
-        reviewList.add(reviewer);
-        reviewList.add(review);
-        return reviewList;
-    }
-
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
