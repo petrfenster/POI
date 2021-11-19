@@ -1,8 +1,6 @@
 package ui;
 
-import model.FeedCollection;
 import model.POI;
-import sun.jvm.hotspot.types.CIntegerField;
 
 import javax.swing.*;
 import java.awt.*;
