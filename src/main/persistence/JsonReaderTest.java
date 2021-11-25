@@ -46,7 +46,7 @@ public class JsonReaderTest extends JsonTest {
             Review review = new Review("Petr", "meh");
             reviews.add(review);
             Rating rating = new Rating(reviews, 1, 3.2);
-            GeoLocation geoLocation = new GeoLocation(1,
+            GeoLocation geoLocation = new GeoLocation("1",
                     "Capliano rd",
                     "vancouver",
                     "BC",

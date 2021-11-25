@@ -11,7 +11,7 @@ public class InitialPOI {
 
     // EFFECTS: initializes POI capilano and adds to poiList
     public POI initializeCapilano() {
-        GeoLocation geo = new GeoLocation(3735, "Capilano Rd",
+        GeoLocation geo = new GeoLocation("3735", "Capilano Rd",
                 "North Vancouver", "BC", "V7R 4J1");
 
         HoursOfOperation hours = new HoursOfOperation(9, 0, 17, 0);
@@ -38,7 +38,7 @@ public class InitialPOI {
 
     // EFFECTS: initializes POI Kinton and adds to poiList
     public POI initializeKinton() {
-        GeoLocation geo = new GeoLocation(6111, "University Blvd", "Vancouver",
+        GeoLocation geo = new GeoLocation("6111", "University Blvd", "Vancouver",
                 "BC", "V6T 0C7");
 
         HoursOfOperation hours = new HoursOfOperation(8, 0, 22, 0);
@@ -68,7 +68,7 @@ public class InitialPOI {
     // EFFECTS: initializes POI Wreck
     public POI initializeWreck() {
 
-        GeoLocation geo = new GeoLocation(1, "SW Marine Dr", "Vancouver",
+        GeoLocation geo = new GeoLocation("1", "SW Marine Dr", "Vancouver",
                 "BC", "V6T 1Z4");
 
         HoursOfOperation hours = new HoursOfOperation(8, 0, 21, 0);
@@ -97,7 +97,7 @@ public class InitialPOI {
 
     public POI initializeTelus() {
 
-        GeoLocation geo = new GeoLocation(1455, "Quebec St", "Vancouver",
+        GeoLocation geo = new GeoLocation("1455", "Quebec St", "Vancouver",
                 "BC", "V6A 327");
 
         HoursOfOperation hours = new HoursOfOperation(10, 0, 17, 0);
@@ -125,7 +125,7 @@ public class InitialPOI {
     }
 
     public POI initializeGallery() {
-        GeoLocation geo = new GeoLocation(750, "Hornby St", "Vancouver",
+        GeoLocation geo = new GeoLocation("750", "Hornby St", "Vancouver",
                 "BC", "V6Z 2H7");
 
         Review gallery1 = new Review("Jack", "Beautiful paintings");

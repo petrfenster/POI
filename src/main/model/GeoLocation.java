@@ -1,7 +1,7 @@
 package model;
 
 public class GeoLocation {
-    private int streetNumber;
+    private String streetNumber;
     private String streetName;
     private String cityName;
     private String province;
@@ -14,7 +14,7 @@ public class GeoLocation {
      EFFECTS: geographical location is set using street name (optional), street number (optional), city name,
               province abbreviation (BC, ON, etc.), and zip code.
     */
-    public GeoLocation(int streetNumber, String streetName, String cityName, String province, String zipCode) {
+    public GeoLocation(String streetNumber, String streetName, String cityName, String province, String zipCode) {
         this.streetNumber = streetNumber;
         this.streetName = streetName;
         this.cityName = cityName;
@@ -24,7 +24,7 @@ public class GeoLocation {
 
     // getters
 
-    public int getStreetNumber() {
+    public String getStreetNumber() {
         return streetNumber;
     }
 
@@ -46,7 +46,7 @@ public class GeoLocation {
 
     //setters
 
-    public void setStreetNumber(int streetNumber) {
+    public void setStreetNumber(String streetNumber) {
         this.streetNumber = streetNumber;
     }
 

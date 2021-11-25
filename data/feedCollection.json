@@ -24,7 +24,7 @@
                     "reviewer": "Kash"
                 }
             ],
-            "geoStreetNumber": 3735,
+            "geoStreetNumber": "3735",
             "endHour": 17,
             "startHour": 9,
             "price": 50,
@@ -61,7 +61,7 @@
                     "reviewer": "Alec"
                 }
             ],
-            "geoStreetNumber": 6111,
+            "geoStreetNumber": "6111",
             "endHour": 22,
             "startHour": 8,
             "price": 20,
@@ -98,7 +98,7 @@
                     "reviewer": "Alec"
                 }
             ],
-            "geoStreetNumber": 1,
+            "geoStreetNumber": "1",
             "endHour": 21,
             "startHour": 8,
             "price": 0,
@@ -135,7 +135,7 @@
                     "reviewer": "Alec"
                 }
             ],
-            "geoStreetNumber": 1455,
+            "geoStreetNumber": "1455",
             "endHour": 17,
             "startHour": 10,
             "price": 70,
@@ -172,7 +172,7 @@
                     "reviewer": "Shaon"
                 }
             ],
-            "geoStreetNumber": 750,
+            "geoStreetNumber": "750",
             "endHour": 19,
             "startHour": 10,
             "price": 49.99,
@@ -183,23 +183,42 @@
             "endMinute": 30
         },
         {
-            "geoCityName": "bdwuq",
-            "geoProvince": "AB",
-            "geoZipCode": "dhbkjew",
-            "type": "Museum",
+            "geoCityName": "Vancouver",
+            "geoProvince": "BC",
+            "geoZipCode": "V6G 1Z4",
+            "type": "Park",
             "ratingReviews": [{
-                "review": "bd",
-                "reviewer": "dgqw"
+                "review": "Nice walk!",
+                "reviewer": "Petr"
             }],
-            "geoStreetNumber": 78,
-            "endHour": 1,
-            "startHour": 1,
-            "price": 89,
-            "name": "hdbew",
-            "geoStreetName": "bdhwq",
+            "geoStreetNumber": "0",
+            "endHour": 0,
+            "startHour": 0,
+            "price": 0,
+            "name": "Stanley Park",
+            "geoStreetName": "None",
+            "startMinute": 0,
+            "ratingAverageRating": 5,
+            "endMinute": 0
+        },
+        {
+            "geoCityName": "Vancouver",
+            "geoProvince": "BC",
+            "geoZipCode": "V6T 1K2",
+            "type": "Restaurant",
+            "ratingReviews": [{
+                "review": "Great place for an afternoon lunch break!",
+                "reviewer": "Paige"
+            }],
+            "geoStreetNumber": "1234",
+            "endHour": 4,
+            "startHour": 2,
+            "price": 0,
+            "name": "COMM 205",
+            "geoStreetName": "Sauder St",
             "startMinute": 30,
-            "ratingAverageRating": 2,
-            "endMinute": 30
+            "ratingAverageRating": 5,
+            "endMinute": 0
         }
     ]
 }

@@ -65,7 +65,7 @@ public class JsonReader {
         String type = jsonObject.getString("type");
         double averageRating = jsonObject.getDouble("ratingAverageRating");
         String streetName = jsonObject.getString("geoStreetName");
-        int streetNumber = jsonObject.getInt("geoStreetNumber");
+        String streetNumber = jsonObject.getString("geoStreetNumber");
         String cityName = jsonObject.getString("geoCityName");
         String province = jsonObject.getString("geoProvince");
         String zipCode = jsonObject.getString("geoZipCode");

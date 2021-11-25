@@ -1,6 +1,7 @@
 package ui;
 
 import model.POI;
+import model.Review;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,14 +43,15 @@ public class StartWindow extends JFrame {
 
     private void addButtonPanel() {
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(2,1));
+        buttonPanel.setLayout(new GridLayout(7,1));
         buttonPanel.add(new JButton(new LoadCollectionAction()));
         buttonPanel.add(new JButton(new SaveCollectionAction()));
         buttonPanel.add(new JButton(new ListAvailablePointsAction()));
         buttonPanel.add(new JButton(new SearchByCategoryAction()));
         buttonPanel.add(new JButton(new AddPointAction()));
-//        buttonPanel.add(new JButton(new RatePOIAction()));
-//        buttonPanel.add(new JButton(new QuitAction()));
+        buttonPanel.add(new JButton(new InfoPOI()));
+        buttonPanel.add(new JButton(new RatePOI()));
+
 
         starterFrame.add(buttonPanel, BorderLayout.CENTER);
     }
@@ -58,6 +60,102 @@ public class StartWindow extends JFrame {
         int width = Toolkit.getDefaultToolkit().getScreenSize().width;
         int height = Toolkit.getDefaultToolkit().getScreenSize().height;
         setLocation((width - getWidth()) / 2, (height - getHeight()) / 2);
+    }
+
+    private class RatePOI extends AbstractAction {
+        private JComboBox<Integer> selectPOI;
+        private List<POI> poiList;
+        private JTextField reviewer;
+        private JTextField review;
+        private JComboBox<Integer> rating;
+        private JInternalFrame rateFrame;
+        private JInternalFrame listFrame;
+
+        RatePOI() {
+            super("Rate a POI");
+        }
+
+
+
+        @Override
+        public void actionPerformed(ActionEvent evt) {
+            poiList = pointAppController.getFeedCollection().getPoiList();
+            listFrame = new JInternalFrame("List of Available POIs", false, true,
+                    false, false);
+            JPanel listPanel = new JPanel();
+            selectPOI = new JComboBox<Integer>();
+            listPanel.setLayout(new GridLayout(poiList.size() + 2,1));
+            for (int i = 0; i < poiList.size(); i++) {
+                POI poi = poiList.get(i);
+                listPanel.add(new JLabel((i + 1) + " - " + poi.getName()));
+                selectPOI.addItem(i + 1);
+            }
+            listPanel.add(selectPOI);
+            listPanel.add(new JButton(new SubmitRateButton()));
+            listFrame.add(listPanel);
+            listFrame.setVisible(true);
+            listFrame.pack();
+            listFrame.setSize(300, listFrame.getHeight());
+            listFrame.setLocation(WIDTH - listFrame.getWidth(), 0);
+            desktop.add(listFrame);
+        }
+
+        private class SubmitRateButton extends AbstractAction {
+            SubmitRateButton() {
+                super("Select");
+            }
+
+            @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                listFrame.setVisible(false);
+                int selectedPOI = (Integer) selectPOI.getSelectedItem();
+                POI poi = poiList.get(selectedPOI - 1);
+                rateFrame = new JInternalFrame("Rate a POI", false, true,
+                        false, false);
+                JPanel ratePanel = new JPanel();
+                ratePanel.setLayout(new GridLayout(5,2));
+                ratePanel.add(new JLabel(poi.getName()));
+                ratePanel.add(new JLabel("  -" + poi.getType()));
+                ratePanel.add(new JLabel("Your name: "));
+                reviewer = new JTextField();
+                ratePanel.add(reviewer);
+                ratePanel.add(new JLabel("Your review: "));
+                review = new JTextField();
+                ratePanel.add(review);
+                ratePanel.add(new JLabel("Your rating (1-5): "));
+                rating = new JComboBox<Integer>();
+                for (int i = 1; i < 6; i++) {
+                    rating.addItem(i);
+                }
+                ratePanel.add(rating);
+                ratePanel.add(new JButton(new SubmitRating()));
+                rateFrame.add(ratePanel);
+                rateFrame.setVisible(true);
+                rateFrame.pack();
+                rateFrame.setLocation(WIDTH - rateFrame.getWidth() - 50, 0);
+                desktop.add(rateFrame);
+            }
+
+            private class SubmitRating extends AbstractAction {
+                SubmitRating() {
+                    super("Submit");
+                }
+
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    String reviewerName = reviewer.getText();
+                    String reviewText = review.getText();
+                    int ratingNum = (Integer) rating.getSelectedItem();
+                    int poiIndex = (Integer) selectPOI.getSelectedItem();
+                    pointAppController.ratePOI(poiIndex, ratingNum, reviewText, reviewerName);
+                    JOptionPane.showMessageDialog(null,
+                            "Your rating has been successfully saved",
+                            "System message", JOptionPane.INFORMATION_MESSAGE);
+                    rateFrame.setVisible(false);
+                }
+            }
+        }
     }
 
     // Represents the action when a user wants to load the stored collection of POIs
@@ -191,6 +289,7 @@ public class StartWindow extends JFrame {
         private JTextField review;
         private JComboBox<Integer> ratingNum;
         private JTextField price;
+        private JInternalFrame addFrame;
 
 
         AddPointAction() {
@@ -199,9 +298,9 @@ public class StartWindow extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent evt) {
-            JInternalFrame addFrame = new JInternalFrame("Add POI", false, true,
+            addFrame = new JInternalFrame("Add POI", false, true,
                     false, false);
-            addFrame.setLayout(new GridLayout(6, 2));
+            addFrame.setLayout(new GridLayout(3, 4));
 
             addFrame.add(namePanel());
             addFrame.add(typePanel());
@@ -223,7 +322,7 @@ public class StartWindow extends JFrame {
 
             addFrame.setVisible(true);
             addFrame.pack();
-            addFrame.setLocation(400, 400);
+            addFrame.setLocation(400 / 2, 200);
             desktop.add(addFrame);
         }
 
@@ -236,7 +335,7 @@ public class StartWindow extends JFrame {
             public void actionPerformed(ActionEvent evt) {
                 String name = nameText.getText();
                 String type = (String) typeSelect.getSelectedItem();
-                int streetNum = Integer.parseInt(addressStreetNum.getText());
+                String streetNum = addressStreetNum.getText();
                 String streetName = addressStreetName.getText();
                 String cityName = addressCityName.getText();
                 String province = (String) addressProvince.getSelectedItem();
@@ -251,6 +350,12 @@ public class StartWindow extends JFrame {
                 double addPrice = Double.parseDouble(price.getText());
                 pointAppController.addPOI(name, type, streetNum, streetName, cityName, province, zipCode, addReviewer,
                         addReview, addRating, startH, startM, endH, endM, addPrice);
+                JOptionPane.showMessageDialog(null,
+                        "The POI has been successfully added to the collection",
+                        "System message", JOptionPane.INFORMATION_MESSAGE);
+                addFrame.setVisible(false);
+
+
 
             }
         }
@@ -369,6 +474,82 @@ public class StartWindow extends JFrame {
             reviewPanel.add(ratingNum);
             return reviewPanel;
         }
+    }
+
+    private class InfoPOI extends AbstractAction {
+        private JComboBox<Integer> selectPOI;
+        private List<POI> poiList;
+
+        InfoPOI() {
+            super("More Info about a POI");
+        }
+
+
+
+        @Override
+        public void actionPerformed(ActionEvent evt) {
+            poiList = pointAppController.getFeedCollection().getPoiList();
+            JInternalFrame listFrame = new JInternalFrame("List of Available POIs", false, true,
+                    false, false);
+            JPanel listPanel = new JPanel();
+            selectPOI = new JComboBox<Integer>();
+            listPanel.setLayout(new GridLayout(poiList.size() + 2,1));
+            for (int i = 0; i < poiList.size(); i++) {
+                POI poi = poiList.get(i);
+                listPanel.add(new JLabel((i + 1) + " - " + poi.getName()));
+                selectPOI.addItem(i + 1);
+            }
+            listPanel.add(selectPOI);
+            listPanel.add(new JButton(new SubmitInfoButton()));
+            listFrame.add(listPanel);
+            listFrame.setVisible(true);
+            listFrame.pack();
+            listFrame.setSize(300, listFrame.getHeight());
+            listFrame.setLocation(WIDTH - listFrame.getWidth(), 0);
+            desktop.add(listFrame);
+        }
+
+        private class SubmitInfoButton extends AbstractAction {
+            SubmitInfoButton() {
+                super("Submit");
+            }
+
+            @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                int selectedPOI = (Integer) selectPOI.getSelectedItem();
+                POI poi = poiList.get(selectedPOI - 1);
+                JInternalFrame infoFrame = new JInternalFrame("Info about a POI", false, true,
+                        false, false);
+                JPanel infoPanel = new JPanel();
+                List<Review> reviewList = poi.getRating().getReviews();
+                infoPanel.setLayout(new GridLayout(reviewList.size() + 7,1));
+                infoPanel.add(new JLabel("Name: "));
+                infoPanel.add(new JLabel(poi.getName()));
+                infoPanel.add(new JLabel("Type: "));
+                infoPanel.add(new JLabel(poi.getType()));
+                infoPanel.add(new JLabel("Location: "));
+                infoPanel.add(new JLabel(poi.getGeoLocation().toString()));
+                infoPanel.add(new JLabel("Hours of operation: "));
+                infoPanel.add(new JLabel(poi.getHoursOfOperation().toString()));
+                infoPanel.add(new JLabel("Price: "));
+                infoPanel.add(new JLabel(String.valueOf(poi.getPrice())));
+                infoPanel.add(new JLabel("Rating: "));
+                infoPanel.add(new JLabel(String.valueOf(poi.getRating().getAverageRating())));
+                infoPanel.add(new JLabel("Reviews: "));
+                for (Review r: reviewList) {
+                    infoPanel.add(new JLabel(r.toString()));
+                }
+                infoFrame.add(infoPanel);
+                infoFrame.setVisible(true);
+                infoFrame.pack();
+                infoFrame.setLocation(WIDTH - infoFrame.getWidth() - 50, 0);
+                desktop.add(infoFrame);
+
+            }
+        }
+
+
     }
 
 

@@ -22,7 +22,7 @@ public class PoiTest extends JsonTest {
 
     @BeforeEach
     public void setUp() {
-        galleryGeo = new GeoLocation(750, "Hornby St", "Vancouver",
+        galleryGeo = new GeoLocation("750", "Hornby St", "Vancouver",
                 "BC", "V6Z 2H7");
 
         Review gallery1 = new Review("Jack", "Beautiful paintings");
@@ -72,7 +72,7 @@ public class PoiTest extends JsonTest {
         testReviews.add(test4);
         testReviews.add(test5);
         testRating = new Rating(testReviews, 5, 3.9);
-        testGeoLocation = new GeoLocation(2205, "Main Mall", "Vancouver",
+        testGeoLocation = new GeoLocation("2205", "Main Mall", "Vancouver",
                 "BC", "V6T 1Z4");
         testHours = new HoursOfOperation(5, 15, 15, 46);
 
@@ -97,7 +97,7 @@ public class PoiTest extends JsonTest {
         String type = jsonObject.getString("type");
         double averageRating = jsonObject.getDouble("ratingAverageRating");
         String streetName = jsonObject.getString("geoStreetName");
-        int streetNumber = jsonObject.getInt("geoStreetNumber");
+        String streetNumber = jsonObject.getString("geoStreetNumber");
         String cityName = jsonObject.getString("geoCityName");
         String province = jsonObject.getString("geoProvince");
         String zipCode = jsonObject.getString("geoZipCode");

@@ -10,7 +10,7 @@
                 "review": "meh",
                 "reviewer": "Petr"
             }],
-            "geoStreetNumber": 1,
+            "geoStreetNumber": "1",
             "endHour": 22,
             "startHour": 8,
             "price": 60,

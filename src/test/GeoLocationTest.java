@@ -8,13 +8,13 @@ public class GeoLocationTest {
 
     @BeforeEach
     public void setUp() {
-        geo = new GeoLocation(750, "Hornby St", "Vancouver", "BC",
+        geo = new GeoLocation("750", "Hornby St", "Vancouver", "BC",
                 "V6Z 2H7");
     }
 
     @Test
     public void testConstructor() {
-        assertEquals(750, geo.getStreetNumber());
+        assertEquals("750", geo.getStreetNumber());
         assertEquals("Hornby St", geo.getStreetName());
         assertEquals("Vancouver", geo.getCityName());
         assertEquals("BC", geo.getProvince());
@@ -23,8 +23,8 @@ public class GeoLocationTest {
 
     @Test
     public void testSetGeoLocation() {
-        geo.setStreetNumber(89);
-        assertEquals(89, geo.getStreetNumber());
+        geo.setStreetNumber("89");
+        assertEquals("89", geo.getStreetNumber());
         geo.setStreetName("Lower Mall");
         assertEquals("Lower Mall", geo.getStreetName());
         geo.setCityName("Toronto");

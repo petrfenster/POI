@@ -25,7 +25,7 @@ public class PointAppController {
         return feedCollection;
     }
 
-    public void addPOI(String addName, String addType, int addStreetNum, String addStreetName, String addCityName,
+    public void addPOI(String addName, String addType, String addStreetNum, String addStreetName, String addCityName,
                         String addProvince, String addZipCode, String addReviewer, String addReviewText,
                         int addRatingNum, int addStartHour, int addStartMinute, int addEndHour, int addEndMinute,
                         double addPrice) {

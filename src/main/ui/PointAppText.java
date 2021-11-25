@@ -210,9 +210,9 @@ public class PointAppText {
     }
 
     // EFFECTS: creates interface for adding POI street number, returns street number
-    private int addStreetNumberInterface() {
+    private String addStreetNumberInterface() {
         System.out.println("Please provide the street number for the POI: ");
-        int addStreetNumber = input.nextInt();
+        String addStreetNumber = input.next();
         return addStreetNumber;
     }
 
