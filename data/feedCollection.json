@@ -59,6 +59,10 @@
                 {
                     "review": "Nice",
                     "reviewer": "Alec"
+                },
+                {
+                    "review": "5",
+                    "reviewer": "Your mom"
                 }
             ],
             "geoStreetNumber": "6111",
@@ -68,7 +72,7 @@
             "name": "Kinton Ramen",
             "geoStreetName": "University Blvd",
             "startMinute": 0,
-            "ratingAverageRating": 4.5,
+            "ratingAverageRating": 4.083333333333333,
             "endMinute": 0
         },
         {
@@ -219,6 +223,25 @@
             "startMinute": 30,
             "ratingAverageRating": 5,
             "endMinute": 0
+        },
+        {
+            "geoCityName": "Vancouver",
+            "geoProvince": "BC",
+            "geoZipCode": "V6C 3T4",
+            "type": "Museum",
+            "ratingReviews": [{
+                "review": "Could be better",
+                "reviewer": "Petr"
+            }],
+            "geoStreetNumber": "999",
+            "endHour": 5,
+            "startHour": 2,
+            "price": 10,
+            "name": "Canada Place",
+            "geoStreetName": "Canada Pl",
+            "startMinute": 45,
+            "ratingAverageRating": 3,
+            "endMinute": 30
         }
     ]
 }

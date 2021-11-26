@@ -6,6 +6,7 @@ import model.Review;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 
@@ -14,8 +15,13 @@ public class StartWindow extends JFrame {
     private PointAppController pointAppController;
     private JDesktopPane desktop;
     private JInternalFrame starterFrame;
+    private JInternalFrame listFrame;
+    private JInternalFrame infoFrame;
+    private JInternalFrame listSelectFrame;
     public static final int WIDTH = 1500;
     public static final int HEIGHT = 900;
+    public static final String IMAGE_FILE = "./data/imagePOI.jpeg";
+    // Image Attribute: Point of Interest by Francisca Pimenta from the Noun Project
 
     public StartWindow() throws FileNotFoundException {
         pointAppController = new PointAppController();
@@ -61,6 +67,7 @@ public class StartWindow extends JFrame {
         int height = Toolkit.getDefaultToolkit().getScreenSize().height;
         setLocation((width - getWidth()) / 2, (height - getHeight()) / 2);
     }
+
 
     private class RatePOI extends AbstractAction {
         private JComboBox<Integer> selectPOI;
@@ -197,7 +204,10 @@ public class StartWindow extends JFrame {
         @Override
         public void actionPerformed(ActionEvent evt) {
             List<POI> poiList = pointAppController.getFeedCollection().getPoiList();
-            JInternalFrame listFrame = new JInternalFrame("List of Available POIs", false, true,
+            if (listFrame != null) {
+                listFrame.setVisible(false);
+            }
+            listFrame = new JInternalFrame("List of Available POIs", false, true,
                     false, false);
             JPanel listPanel = new JPanel();
             listPanel.setLayout(new GridLayout(poiList.size(),1));
@@ -250,8 +260,12 @@ public class StartWindow extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
+                if (listSelectFrame != null) {
+                    listSelectFrame.setVisible(false);
+                }
+                categoryFrame.setVisible(false);
                 String selectedCategory = (String) categorySelect.getSelectedItem();
-                JInternalFrame listSelectFrame = new JInternalFrame("List of " + selectedCategory, false,
+                listSelectFrame = new JInternalFrame("List of " + selectedCategory, false,
                         true, false, false);
                 int count = 0;
                 JPanel listSelectPanel = new JPanel();
@@ -350,9 +364,10 @@ public class StartWindow extends JFrame {
                 double addPrice = Double.parseDouble(price.getText());
                 pointAppController.addPOI(name, type, streetNum, streetName, cityName, province, zipCode, addReviewer,
                         addReview, addRating, startH, startM, endH, endM, addPrice);
+                ImageIcon icon = new ImageIcon(IMAGE_FILE);
                 JOptionPane.showMessageDialog(null,
                         "The POI has been successfully added to the collection",
-                        "System message", JOptionPane.INFORMATION_MESSAGE);
+                        "System message", JOptionPane.INFORMATION_MESSAGE, icon);
                 addFrame.setVisible(false);
 
 
@@ -479,6 +494,7 @@ public class StartWindow extends JFrame {
     private class InfoPOI extends AbstractAction {
         private JComboBox<Integer> selectPOI;
         private List<POI> poiList;
+        private JInternalFrame listInfoFrame;
 
         InfoPOI() {
             super("More Info about a POI");
@@ -489,7 +505,10 @@ public class StartWindow extends JFrame {
         @Override
         public void actionPerformed(ActionEvent evt) {
             poiList = pointAppController.getFeedCollection().getPoiList();
-            JInternalFrame listFrame = new JInternalFrame("List of Available POIs", false, true,
+            if (infoFrame != null) {
+                infoFrame.setVisible(false);
+            }
+            listInfoFrame = new JInternalFrame("List of Available POIs", false, true,
                     false, false);
             JPanel listPanel = new JPanel();
             selectPOI = new JComboBox<Integer>();
@@ -501,12 +520,12 @@ public class StartWindow extends JFrame {
             }
             listPanel.add(selectPOI);
             listPanel.add(new JButton(new SubmitInfoButton()));
-            listFrame.add(listPanel);
-            listFrame.setVisible(true);
-            listFrame.pack();
-            listFrame.setSize(300, listFrame.getHeight());
-            listFrame.setLocation(WIDTH - listFrame.getWidth(), 0);
-            desktop.add(listFrame);
+            listInfoFrame.add(listPanel);
+            listInfoFrame.setVisible(true);
+            listInfoFrame.pack();
+            listInfoFrame.setSize(300, listInfoFrame.getHeight());
+            listInfoFrame.setLocation(WIDTH - listInfoFrame.getWidth(), 0);
+            desktop.add(listInfoFrame);
         }
 
         private class SubmitInfoButton extends AbstractAction {
@@ -517,9 +536,10 @@ public class StartWindow extends JFrame {
             @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
             @Override
             public void actionPerformed(ActionEvent evt) {
+                listInfoFrame.setVisible(false);
                 int selectedPOI = (Integer) selectPOI.getSelectedItem();
                 POI poi = poiList.get(selectedPOI - 1);
-                JInternalFrame infoFrame = new JInternalFrame("Info about a POI", false, true,
+                infoFrame = new JInternalFrame("Info about a POI", false, true,
                         false, false);
                 JPanel infoPanel = new JPanel();
                 List<Review> reviewList = poi.getRating().getReviews();
@@ -545,11 +565,8 @@ public class StartWindow extends JFrame {
                 infoFrame.pack();
                 infoFrame.setLocation(WIDTH - infoFrame.getWidth() - 50, 0);
                 desktop.add(infoFrame);
-
             }
         }
-
-
     }
 
 
