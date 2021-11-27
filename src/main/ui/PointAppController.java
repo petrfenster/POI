@@ -46,6 +46,9 @@ public class PointAppController {
         POI addPOI = new POI(addName, addType, addRating, addGeo, addHours, addPrice);
 
         feedCollection.addToList(addPOI);
+        EventLog.getInstance().logEvent(new Event("Added POI: " + addPOI.getName() + " - "
+                + addPOI.getType()));
+
     }
 
     // MODIFIES: this
@@ -53,7 +56,10 @@ public class PointAppController {
     public void ratePOI(int poiIndex, double rateNum, String rateText, String rateReviewer) {
         POI ratePOI = feedCollection.getPoiList().get(poiIndex);
         Review rateReview = new Review(rateReviewer, rateText);
-        ratePOI.getRating().generalRating(rateNum, rateReview);
+        feedCollection.getPoiList().get(poiIndex).getRating().generalRating(rateNum, rateReview);
+        EventLog.getInstance().logEvent(new Event(rateReviewer + " rated " + ratePOI.getName()));
+
+
     }
 
     // EFFECTS: saves the workroom to file
@@ -62,7 +68,7 @@ public class PointAppController {
             jsonWriter.open();
             jsonWriter.write(feedCollection);
             jsonWriter.close();
-            System.out.println("Saved " + feedCollection.getName() + " to " + JSON_STORE);
+            EventLog.getInstance().logEvent(new Event("Collection has been successfully saved"));
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
@@ -73,7 +79,7 @@ public class PointAppController {
     public void loadFeedCollection() {
         try {
             feedCollection = jsonReader.read();
-            System.out.println("Loaded " + feedCollection.getName() + " from " + JSON_STORE);
+            EventLog.getInstance().logEvent(new Event("Collection has been successfully loaded"));
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }

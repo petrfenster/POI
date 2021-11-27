@@ -210,10 +210,16 @@
             "geoProvince": "BC",
             "geoZipCode": "V6T 1K2",
             "type": "Restaurant",
-            "ratingReviews": [{
-                "review": "Great place for an afternoon lunch break!",
-                "reviewer": "Paige"
-            }],
+            "ratingReviews": [
+                {
+                    "review": "Great place for an afternoon lunch break!",
+                    "reviewer": "Paige"
+                },
+                {
+                    "review": "Noice",
+                    "reviewer": "Petr"
+                }
+            ],
             "geoStreetNumber": "1234",
             "endHour": 4,
             "startHour": 2,
@@ -221,7 +227,7 @@
             "name": "COMM 205",
             "geoStreetName": "Sauder St",
             "startMinute": 30,
-            "ratingAverageRating": 5,
+            "ratingAverageRating": 4.5,
             "endMinute": 0
         },
         {
@@ -242,6 +248,25 @@
             "startMinute": 45,
             "ratingAverageRating": 3,
             "endMinute": 30
+        },
+        {
+            "geoCityName": "fesip",
+            "geoProvince": "AB",
+            "geoZipCode": "jpfse",
+            "type": "Park",
+            "ratingReviews": [{
+                "review": "fneauo",
+                "reviewer": "hispe"
+            }],
+            "geoStreetNumber": "fhiose",
+            "endHour": 0,
+            "startHour": 0,
+            "price": 5,
+            "name": "gufeouwf",
+            "geoStreetName": "fjeshopf",
+            "startMinute": 0,
+            "ratingAverageRating": 1,
+            "endMinute": 0
         }
     ]
 }

@@ -154,7 +154,7 @@ public class StartWindow extends JFrame {
                     String reviewerName = reviewer.getText();
                     String reviewText = review.getText();
                     int ratingNum = (Integer) rating.getSelectedItem();
-                    int poiIndex = (Integer) selectPOI.getSelectedItem();
+                    int poiIndex = (Integer) selectPOI.getSelectedItem() - 1;
                     pointAppController.ratePOI(poiIndex, ratingNum, reviewText, reviewerName);
                     JOptionPane.showMessageDialog(null,
                             "Your rating has been successfully saved",
