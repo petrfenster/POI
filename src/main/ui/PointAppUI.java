@@ -26,6 +26,7 @@ public class PointAppUI extends JFrame {
     public static final String IMAGE_FILE = "./data/imagePOI.jpeg";
     // Image Attribute: Point of Interest by Francisca Pimenta from the Noun Project
 
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public PointAppUI() throws FileNotFoundException {
         pointAppController = new PointAppController();
         desktop = new JDesktopPane();
