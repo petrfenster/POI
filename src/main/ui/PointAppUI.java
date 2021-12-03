@@ -1,17 +1,20 @@
 package ui;
 
+import model.Event;
 import model.POI;
 import model.Review;
+import model.EventLog;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.File;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.util.List;
 
 
-public class StartWindow extends JFrame {
+public class PointAppUI extends JFrame {
     private PointAppController pointAppController;
     private JDesktopPane desktop;
     private JInternalFrame starterFrame;
@@ -23,29 +26,34 @@ public class StartWindow extends JFrame {
     public static final String IMAGE_FILE = "./data/imagePOI.jpeg";
     // Image Attribute: Point of Interest by Francisca Pimenta from the Noun Project
 
-    public StartWindow() throws FileNotFoundException {
+    public PointAppUI() throws FileNotFoundException {
         pointAppController = new PointAppController();
-
         desktop = new JDesktopPane();
         starterFrame = new JInternalFrame("Starter Window", false, false, false,
                 false);
         starterFrame.setLayout(new BorderLayout());
         starterFrame.setSize(200, 300);
-
         setContentPane(desktop);
         setTitle("POI Application Starter Window");
         setSize(WIDTH, HEIGHT);
-
         addButtonPanel();
-
         starterFrame.pack();
         starterFrame.setVisible(true);
         desktop.add(starterFrame);
-
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent event) {
+                for (Event next : EventLog.getInstance()) {
+                    System.out.println(next.toString());
+                }
+            }
+        });
         centreOnScreen();
         setVisible(true);
     }
+
+
 
     private void addButtonPanel() {
         JPanel buttonPanel = new JPanel();
@@ -214,6 +222,7 @@ public class StartWindow extends JFrame {
             for (POI poi: poiList) {
                 listPanel.add(new JLabel(poi.getName() + " - " + poi.getType()));
             }
+            pointAppController.listPOI();
             listFrame.add(listPanel, BorderLayout.CENTER);
             listFrame.setVisible(true);
             listFrame.pack();
@@ -265,6 +274,7 @@ public class StartWindow extends JFrame {
                 }
                 categoryFrame.setVisible(false);
                 String selectedCategory = (String) categorySelect.getSelectedItem();
+                pointAppController.categoryPOI(selectedCategory);
                 listSelectFrame = new JInternalFrame("List of " + selectedCategory, false,
                         true, false, false);
                 int count = 0;
@@ -560,6 +570,7 @@ public class StartWindow extends JFrame {
                 for (Review r: reviewList) {
                     infoPanel.add(new JLabel(r.toString()));
                 }
+                pointAppController.infoPOI(poi);
                 infoFrame.add(infoPanel);
                 infoFrame.setVisible(true);
                 infoFrame.pack();
@@ -568,15 +579,4 @@ public class StartWindow extends JFrame {
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
 }

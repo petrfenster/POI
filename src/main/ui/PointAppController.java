@@ -68,7 +68,7 @@ public class PointAppController {
             jsonWriter.open();
             jsonWriter.write(feedCollection);
             jsonWriter.close();
-            EventLog.getInstance().logEvent(new Event("Collection has been successfully saved"));
+            EventLog.getInstance().logEvent(new Event("Collection has been saved"));
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
@@ -79,10 +79,24 @@ public class PointAppController {
     public void loadFeedCollection() {
         try {
             feedCollection = jsonReader.read();
-            EventLog.getInstance().logEvent(new Event("Collection has been successfully loaded"));
+            EventLog.getInstance().logEvent(new Event("Collection has been loaded"));
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
+    }
+
+    public void infoPOI(POI poi) {
+        EventLog.getInstance().logEvent(new Event("Additional info about " + poi.getName()
+                + " has been requested"));
+    }
+
+    public void listPOI() {
+        EventLog.getInstance().logEvent(new Event("All available POIs have been listed"));
+    }
+
+    public void categoryPOI(String typePOI) {
+        EventLog.getInstance().logEvent(new Event("All the POIs of the category " + typePOI
+                + " have been listed"));
     }
 
 
