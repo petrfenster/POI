@@ -267,6 +267,31 @@
             "startMinute": 0,
             "ratingAverageRating": 1,
             "endMinute": 0
+        },
+        {
+            "geoCityName": "guo",
+            "geoProvince": "AB",
+            "geoZipCode": "hu89",
+            "type": "Park",
+            "ratingReviews": [
+                {
+                    "review": "bk",
+                    "reviewer": "hugo"
+                },
+                {
+                    "review": "cvoul",
+                    "reviewer": "huo"
+                }
+            ],
+            "geoStreetNumber": "gyib",
+            "endHour": 0,
+            "startHour": 0,
+            "price": 7,
+            "name": "gy9iouh",
+            "geoStreetName": "giu",
+            "startMinute": 0,
+            "ratingAverageRating": 1,
+            "endMinute": 0
         }
     ]
 }
